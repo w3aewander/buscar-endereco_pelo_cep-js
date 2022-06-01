@@ -13,6 +13,9 @@
 > Caso não seja encontrada a informação, uma mensagem será exibida na DIV de resposta.
 
 ## Chckbox personalizado com html+javascript
+
 > Implementação personalizada de controle checkbox
 > Envio de dados resultado da seleçáo para processamento via javascript
+
+
  
