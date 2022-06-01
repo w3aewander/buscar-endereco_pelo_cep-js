@@ -1,4 +1,3 @@
-# buscar-endereco_pelo_cep-js
 ## Buscar endereço pelo CEP
 > Digite o CEP desejado na caixa de entrada de texto
 > Clique no botão "Buscar endereço"
