@@ -1,5 +1,5 @@
 #########################################
-# Author Wanderlei Silva do Carmo
+## Author Wanderlei Silva do Carmo
 #########################################
 
 # Desenvolvimento HTML - JAVASCRIPT - CSS
