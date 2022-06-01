@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <!-- 
+        Buscar endereço a partir da informação do CEP pelo usuário
+        @author Wanderlei Silva do Carmo <wander.silva@gmail.com>
+        @licence livre uso e distribuição
+    -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar CEP</title>
+
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+ 
+    <style>
+
+        label, .input-group-text {
+            font-weight: bold;
+        }
+        .jumbotron{
+            display: flex;
+            justify-content: baseline;
+            align-items: end;
+            color: whitesmoke;
+            font-weight: bolder;
+        height: 120px; 
+        background: linear-gradient(rgb(0, 98, 255), rgb(54, 123, 235), rgb(169, 192, 235));
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <div class="container">
+
+    <div class="jumbotron px-4 mb-4">
+        <h2 class="">Buscar endereço do CEP informado</h2> 
+    </div>
+    <div class="input-group">
+        <div class="input-group-append">            
+            <label for="txt-cep"  class="input-group-text" >CEP</label>
+        </div>
+        
+        <input type="search"  class="form-control" id="txt-cep" placeholder="informe o cep"> 
+        <button type="button"  class="btn btn-primary btn-sm" id="btn-buscar-cep"><i class="fa fa-search fa-fw"></i> Buscar endereço</button>
+    </div>
+        
+    <hr>
+
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="tipo_logradouro">Tipo logradouro</label>
+            <input type="text"   class="form-control" id="tipo-logradouro">
+        </div>
+        <div class="form-group col-md-8">
+            <label for="logradouro">Logradouro</label>
+            <input type="text"   class="form-control" id="logradouro">
+        </div>
+    </div>
+        
+    
+    <div class="row">
+        <div class="form-group col-md-5">
+            <label for="bairro">Bairro</label>
+            <input type="text"   class="form-control" id="bairro">
+        </div>
+        <div class="form-gorup col-md-5">
+            <label for="cidade">Cidade</label>
+            <input type="text"   class="form-control" id="cidade">
+        </div>
+        <div class="form-group col-md-2">
+            <label for="uf">Estado</label>
+            <input type="text"   class="form-control" id="uf">
+        </div>
+    </div>
+
+    <div class="text-danger my-4" id="resultado">
+    </div>
+
+    <table class="table table-hover table-striped" width="80%">
+        <thead>
+            <tr>
+                <td>Tipo Log.</td>
+                <td>Logradouro</td>
+                <td>Bairro</td>
+                <td>Cidade</td>
+                <td>Uf</td>
+            </tr>
+        </thead>
+        <tbody id="tbody-endereco">
+
+        </tbody>
+    </table>
+
+
+    
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(evt){
+            document.getElementById("btn-buscar-cep").addEventListener("click", function(){
+                const cep = document.getElementById("txt-cep")
+                buscarEndereco(cep.value)
+            })
+        })
+
+        const buscarEndereco = cep =>{
+            
+            const btnBuscarCep = document.getElementById("btn-buscar-cep")
+            btnBuscarCep.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Buscando cep...`
+            btnBuscarCep.setAttribute("disabled", true)
+            
+            document.getElementById("resultado").textContent = ""
+
+            const uri = `http://cep.republicavirtual.com.br/web_cep.php?cep=${cep}&formato=json`
+            fetch(uri).then(r => r.json().then(r => {
+
+                     //console.log(r)
+                     document.getElementById("tipo-logradouro").value = r.tipo_logradouro
+                     document.getElementById("logradouro").value = r.logradouro
+                     document.getElementById("bairro").value = r.bairro
+                     document.getElementById("cidade").value = r.cidade
+                     document.getElementById("uf").value = r.uf
+
+    
+                     document.getElementById("tbody-endereco")
+                          .innerHTML = `<tr>
+                                         <td>${r.tipo_logradouro}</td>
+                                         <td>${r.logradouro}</td>
+                                         <td>${r.bairro}</td>
+                                         <td>${r.cidade}</td>
+                                         <td>${r.uf}</td>
+                                        </tr>`
+
+                    if ( r.resultado ===  "0" ) {
+                         document.getElementById("resultado").textContent = "Endereço não localizado." 
+                    }
+                    btnBuscarCep.innerHTML = `<i class="fa fa-search fa-fw"></i> Buscar cep`
+                    btnBuscarCep.removeAttribute("disabled")
+
+                    
+
+
+            }))
+
+        }
+
+    </script>
+</body>
+
+
+</html>
