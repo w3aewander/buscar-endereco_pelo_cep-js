@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<style>
+
+    .box{
+        display: block;
+        margin: 0 auto;
+        width: 500px;
+        flex-direction: column;
+
+    }
+
+    .box-opt{
+        display: flex;
+        align-items: center;
+        height: 60px;
+        align-items: center;
+        padding: 5px 5px 5px;
+        box-sizing: border-box;
+        border: 1px solid outset;
+        border-color: blue;
+        background: linear-gradient(blue, rgba(0, 128, 255, 0.788));
+        margin: 5px 5px;
+       
+    }
+
+    .box-opt:active{
+        border: 1px inset;
+
+    }
+
+    .box-opt label{
+        display: flex;
+        flex-grow: 1 ;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        margin-left: 5px;
+        font-size: 1.7rem;
+        cursor: pointer;
+        color: #fff;
+    }
+
+
+    .box-opt input[type="checkbox"]  {
+        appearance: none;
+        color: red;
+        height: 35px;
+        width: 35px;
+        border: 5px solid rgb(0, 255, 89);
+        border-radius: 50%;
+         background-color: rgb(249, 244, 244);
+         margin-right: 10px;
+         padding: 5px;
+     }
+
+     .box-opt input[type="checkbox"]:checked{
+        background-color: rgb(255, 8, 0);
+        color: red;
+     }
+
+     .btn{
+         width: 100% ;
+         height: 45px;    
+         font-size: 1.2rem;
+         color: #fafafa;
+         cursor: pointer;  
+
+     }
+
+     .btn:active{
+         border: 4px darkblue inset;
+         background-color: rgb(20, 8, 122);
+     }
+     .btn-primary{
+        background-color: rgba(7, 14, 227, 0.821); 
+        border: 5px blue outset;
+     }
+     .box-btns{
+         display: flex;
+         justify-content: center;
+         width: 99%;
+         
+     }
+</style>
+
+</head>
+<body>
+
+<div class="box">
+
+    <div class="box-opt">
+        <label for="opt1">
+            <input type="checkbox"  value="opcao1"  name="opt" id="opt1">
+            Opção 1
+        </label>
+    </div> 
+    
+    <div class="box-opt">
+        <label for="opt2">
+            <input type="checkbox"  value="opcao2"  name="opt" id="opt2">
+            Opção 2
+        </label>
+    </div> 
+    
+    <div class="box-opt">
+        <label for="opt3">
+            <input type="checkbox" value="opcao3" name="opt" id="opt3">
+            Opção 3
+        </label>
+    </div> 
+    
+
+    <div class="box-opt">
+        <label for="opt4">
+            <input type="checkbox"  value="opcao4"  name="opt" id="opt4">
+            Opção 4
+        </label>
+    </div> 
+    
+
+    <div class="box-btns">
+        <button class="btn btn-primary" id="emitir-senha">Emitir Senha</button>
+    </div>
+
+</div>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function(evt){
+        const btnEmitirSenha = document.getElementById('emitir-senha')
+        btnEmitirSenha.addEventListener('click', (ev) => {
+            const opts = document.querySelectorAll('[name=opt]:checked');
+
+            let toPrint = ""
+
+            opts.forEach(element => {
+                toPrint += `\n${element.id} - ${element.value}`
+            });
+
+            console.log(toPrint)
+
+
+
+        })
+    })
+
+</script>
+    
+</body>
+</html>
