@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @keyframes piscarTela {
+            from { border: 5px solid red; }
+            to   { border: 5px solid gray; }
+        }
+ 
+         .container{
+            display: block;
+            padding: 50px;
+            width: 60%;
+            height: 400px;
+            border: 5px solid gray;
+         }
+         .piscar-div{
+
+            border: 15px solid red;
+            animation: piscarTela .3s    30;
+         }
+
+    </style>
+
+    <script>
+        const removerPiscarTela = () => {
+            document.getElementById("ttt").classList.remove('piscar-div')
+        }
+        const ativarPiscarTela = () => {
+            document.getElementById("ttt").classList.add('piscar-div')
+        }
+    </script>
+</head>
+<body>
+
+    <div id="ttt" class="container piscar-div">
+        Apenas um teste
+    </div>
+
+    <button onclick="removerPiscarTela();">Remover efeito</button>
+    <button onclick="ativarPiscarTela();">Ativar efeito</button>
+    
+</body>
+</html>
